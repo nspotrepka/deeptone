@@ -1,1 +1,3 @@
-import tensorflow as tf
+import deeptone
+
+print("TensorFlow {}".format(tf.__version__))
