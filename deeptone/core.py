@@ -1,10 +1,11 @@
+import numpy as np
 import tensorflow as tf
 from tensorflow import keras
-import numpy as np
+
+def print_tensorflow_version():
+    print("TensorFlow {}".format(tf.__version__))
 
 class DeepTone:
-    self.model = None
-
     def __init__(self):
         self.model = keras.Sequential([
             keras.layers.Flatten(input_shape=(64, 64)),

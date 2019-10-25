@@ -1,3 +1,6 @@
-import deeptone
+import tensorflow as tf
+from deeptone import core
 
-print("TensorFlow {}".format(tf.__version__))
+core.print_tensorflow_version()
+
+model = core.DeepTone()
