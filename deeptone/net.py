@@ -2,9 +2,9 @@ import numpy as np
 import torch.nn as nn
 import torch.optim as optim
 
-class DeepTone(nn.Module):
+class Example(nn.Module):
     def __init__(self):
-        super(DeepTone, self).__init__()
+        super(Example, self).__init__()
         # parameters
         self.n_fft = 256
 

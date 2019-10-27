@@ -1,27 +1,22 @@
-import torch
-from torch.utils.data import DataLoader
 import torchaudio
-import deeptone
+import deeptone.data as data
+import deeptone.net as net
+import deeptone.setup as setup
 
 def main():
-    deeptone.print_torch_version()
+    print("PyTorch", setup.torch_version())
+    print("CUDA is available:", setup.cuda_is_available())
+    print("CUDA device count:", setup.cuda_device_count())
 
     directory = "fma_small"
-    batch_size = 4
+    batch_size = 8
     num_workers = 8
+    dataset = data.Audio(directory)
+    loader = dataset.loader(batch_size, num_workers)
 
-    dataset = deeptone.Audio(directory)
-    loader = DataLoader(dataset=dataset,
-                        batch_size=batch_size,
-                        shuffle=True,
-                        num_workers=num_workers)
-    model = deeptone.DeepTone()
+    device = setup.device()
 
-    print("GPU count =", torch.cuda.device_count())
-    if torch.cuda.device_count() > 1:
-        model = nn.DataParallel(model)
-
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    model = setup.parallel(net.Example())
     model.to(device)
 
     torchaudio.initialize_sox()
@@ -30,9 +25,8 @@ def main():
     for batch in loader:
         sound = batch
         sound.to(device)
-        count += sound.size()[0]
-        if (count % 1000 == 0):
-            print("Loaded", count, "/", dataset.__len__())
+        count = min(count + batch_size, dataset.__len__())
+        print("Loaded", count, "/", dataset.__len__())
     print("Done")
 
     torchaudio.shutdown_sox()

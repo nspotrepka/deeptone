@@ -1,7 +1,8 @@
+import os
 import torch
 from torch.utils.data import Dataset
+from torch.utils.data import DataLoader
 import torchaudio
-import os
 
 class Audio(Dataset):
     rate = 44100
@@ -10,8 +11,8 @@ class Audio(Dataset):
 
     def __init__(self, directory):
         walk = os.walk(directory)
-        self.data = [z[0] + "/" + file for z in walk for file in z[2]]
-        self.data = [path for path in self.data if path.endswith(".mp3")]
+        self.paths = [x[0] + "/" + f for x in walk for f in x[2]]
+        self.paths = [p for p in self.paths if p.endswith(".mp3")]
         self.chain = torchaudio.sox_effects.SoxEffectsChain()
         self.chain.append_effect_to_chain("rate", [str(Audio.rate)])
         self.chain.append_effect_to_chain("channels", [str(Audio.channels)])
@@ -19,8 +20,8 @@ class Audio(Dataset):
         self.chain.append_effect_to_chain("trim", ["0", str(Audio.length)])
 
     def __getitem__(self, index):
-        file_path = self.data[index]
-        self.chain.set_input_file(file_path)
+        path = self.paths[index]
+        self.chain.set_input_file(path)
         try:
             sound, _ = self.chain.sox_build_flow_effects()
         except:
@@ -28,4 +29,7 @@ class Audio(Dataset):
         return sound
 
     def __len__(self):
-        return len(self.data)
+        return len(self.paths)
+
+    def loader(self, batch_size, num_workers=0):
+        return DataLoader(self, batch_size, True, num_workers=num_workers)
