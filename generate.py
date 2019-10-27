@@ -1,9 +1,8 @@
-import tensorflow as tf
-from deeptone import DeepTone
+import deeptone
 
 def main():
-    DeepTone.print_tensorflow_version()
-    model = DeepTone()
+    deeptone.print_torch_version()
+    pass
 
 if __name__ == '__main__':
     main()
