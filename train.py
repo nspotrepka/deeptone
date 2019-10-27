@@ -20,7 +20,6 @@ def main():
     model.to(device)
 
     torchaudio.initialize_sox()
-
     count = 0
     for batch in loader:
         sound = batch
@@ -28,7 +27,6 @@ def main():
         count = min(count + batch_size, dataset.__len__())
         print('Loaded', count, '/', dataset.__len__())
     print('Done')
-
     torchaudio.shutdown_sox()
 
 if __name__ == '__main__':

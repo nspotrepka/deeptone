@@ -5,7 +5,7 @@ import torchaudio
 
 class Audio(Dataset):
     rate = 44100
-    channels = 1
+    channels = 2
     length = 30
 
     def __init__(self, directory):
@@ -22,10 +22,10 @@ class Audio(Dataset):
         path = self.paths[index]
         self.chain.set_input_file(path)
         try:
-            sound, _ = self.chain.sox_build_flow_effects()
-        except:
-            sound = torch.zeros([Audio.channels, Audio.length * Audio.rate])
-        return sound
+            audio, _ = self.chain.sox_build_flow_effects()
+        except RuntimeError:
+            audio = torch.zeros([Audio.channels, Audio.length * Audio.rate])
+        return audio
 
     def __len__(self):
         return len(self.paths)
