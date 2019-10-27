@@ -4,15 +4,15 @@ import deeptone.net as net
 import deeptone.setup as setup
 
 def main():
-    print("PyTorch", setup.torch_version())
-    print("CUDA is available:", setup.cuda_is_available())
-    print("CUDA device count:", setup.cuda_device_count())
+    print('PyTorch', setup.torch_version())
+    print('CUDA is available:', setup.cuda_is_available())
+    print('CUDA device count:', setup.cuda_device_count())
 
-    directory = "fma_small"
+    directory = 'fma_small'
     batch_size = 8
     num_workers = 8
     dataset = data.Audio(directory)
-    loader = dataset.loader(batch_size, num_workers)
+    loader = setup.load(dataset, batch_size, num_workers)
 
     device = setup.device()
 
@@ -26,8 +26,8 @@ def main():
         sound = batch
         sound.to(device)
         count = min(count + batch_size, dataset.__len__())
-        print("Loaded", count, "/", dataset.__len__())
-    print("Done")
+        print('Loaded', count, '/', dataset.__len__())
+    print('Done')
 
     torchaudio.shutdown_sox()
 
