@@ -8,7 +8,7 @@ def main():
 
     directory = "fma_small"
     batch_size = 4
-    num_workers = 0
+    num_workers = 8
 
     dataset = deeptone.Audio(directory)
     loader = DataLoader(dataset=dataset,
@@ -28,7 +28,7 @@ def main():
 
     count = 0
     for batch in loader:
-        sound, _ = batch
+        sound = batch
         sound.to(device)
         count += sound.size()[0]
         if (count % 1000 == 0):
