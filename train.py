@@ -1,6 +1,6 @@
 import torchaudio
-import deeptone.data as data
-import deeptone.net as net
+from deeptone.fma import FMA
+from deeptone.net import Example
 import deeptone.setup as setup
 
 def main():
@@ -11,12 +11,12 @@ def main():
     directory = 'fma_small'
     batch_size = 8
     num_workers = 8
-    dataset = data.FMA(directory)
+    dataset = FMA(directory)
     loader = setup.load(dataset, batch_size, num_workers)
 
     device = setup.device()
 
-    model = setup.parallel(net.Example())
+    model = setup.parallel(Example())
     model.to(device)
 
     torchaudio.initialize_sox()
