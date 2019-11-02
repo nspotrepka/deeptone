@@ -11,7 +11,7 @@ def main():
     directory = 'fma_small'
     batch_size = 8
     num_workers = 8
-    dataset = data.Audio(directory)
+    dataset = data.FMA(directory)
     loader = setup.load(dataset, batch_size, num_workers)
 
     device = setup.device()
@@ -22,8 +22,9 @@ def main():
     torchaudio.initialize_sox()
     count = 0
     for batch in loader:
-        sound = batch
+        sound, genre = batch
         sound.to(device)
+        genre.to(device)
         count = min(count + batch_size, dataset.__len__())
         print('Loaded', count, '/', dataset.__len__())
     print('Done')
