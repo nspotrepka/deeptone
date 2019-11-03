@@ -2,6 +2,7 @@ import csv
 import numpy as np
 import os
 import torch
+import torch.nn.functional as F
 from torch.utils.data import Dataset
 import torchaudio
 
@@ -58,8 +59,8 @@ class FMA(Dataset):
         except RuntimeError:
             audio = torch.zeros([FMA.channels, FMA.length * FMA.rate])
         genre = self.genres[self.index[i]]
-        one_hot_encoding = torch.zeros([len(self.list_of_genres)])
-        one_hot_encoding[self.list_of_genres.index(genre)] = 1
+        genre_index = torch.tensor(self.list_of_genres.index(genre))
+        one_hot_encoding = F.one_hot(genre_index, len(self.list_of_genres))
         return audio.float(), one_hot_encoding.float()
 
     def __len__(self):
