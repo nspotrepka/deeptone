@@ -2,7 +2,7 @@
 
 ### Setup
 
-First, download the data:
+First, download the dataset:
 ```
 curl -O https://os.unil.cloud.switch.ch/fma/fma_metadata.zip
 curl -O https://os.unil.cloud.switch.ch/fma/fma_small.zip
