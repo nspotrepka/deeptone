@@ -2,8 +2,7 @@
 
 ### Setup
 
-To download the data, run the following commands:
-
+First, download the data:
 ```
 curl -O https://os.unil.cloud.switch.ch/fma/fma_metadata.zip
 curl -O https://os.unil.cloud.switch.ch/fma/fma_small.zip
