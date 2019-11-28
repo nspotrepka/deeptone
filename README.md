@@ -2,6 +2,8 @@
 
 ### Setup
 
+To download the data, run the following:
+
 ```
 curl -O https://os.unil.cloud.switch.ch/fma/fma_metadata.zip
 curl -O https://os.unil.cloud.switch.ch/fma/fma_small.zip
@@ -28,7 +30,6 @@ Data | Dimension | Description
 Audio Samples | `(8000, 2, 1323000)` | 2 channels, 30 seconds, 44.1 kHz
 Genre | `(8000, 8)` | one-hot encoding of 8 genres
 
-Here are the 8 genres:
 ```
 ['Electronic', 'Experimental', 'Folk', 'Hip-Hop', 'Instrumental', 'International', 'Pop', 'Rock']
 ```
