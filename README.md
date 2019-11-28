@@ -25,7 +25,7 @@ brew install p7zip
 
 Data | Dimension | Description
 --- | --- | ---
-Audio Samples | (767, 2, 1323000) | 2 channels, 30 seconds, 44.1 kHz
+Audio Samples | (8000, 2, 1323000) | 2 channels, 30 seconds, 44.1 kHz
 Genre | (8000, 8) | one-hot encoding of 8 genres
 
 Here are the 8 genres:
